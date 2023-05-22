@@ -32,7 +32,7 @@ public class DepartmentService {
     public int findMinSalaryFromDepartment(int department) {
         return employeeService.getAll().stream()
                 .filter(employee -> employee.getDepartment() == department)
-                .mapToInt(Employee::getDepartment)
+                .mapToInt(Employee::getSalary)
                 .min()
                 .orElseThrow(RuntimeException::new);
     }

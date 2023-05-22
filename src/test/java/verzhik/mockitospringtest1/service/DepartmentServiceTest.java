@@ -76,16 +76,16 @@ class DepartmentServiceTest {
     static Stream<Arguments> EmployeesFromDepartmentParams() {
         return Stream.of(
                 Arguments.of(1,
-                        List.of("Wayne Rooney", 350000, 1),
-                        List.of("Rayan Giggs", 250000, 1)),
+                        List.of(new Employee("Wayne Rooney", 350000, 1),
+                        new Employee("Rayan Giggs", 250000, 1)),
                 Arguments.of(2,
-                        List.of("Tierie Henry", 400000, 2),
-                        List.of("Cesk Fabregas", 300000, 2)),
+                        List.of(new Employee("Tierie Henry", 400000, 2),
+                        new Employee("Cesk Fabregas", 300000, 2)),
                 Arguments.of(3,
-                        List.of("Steven Gerard", 300000, 3),
-                        List.of("Mohamed Salah", 350000, 3)),
+                        new Employee("Steven Gerard", 300000, 3),
+                        new Employee("Mohamed Salah", 350000, 3)),
                 Arguments.of(4,
-                        Collections.emptyList())
+                        Collections.emptyList())))
         );
     }
 
@@ -141,7 +141,7 @@ class DepartmentServiceTest {
 
     @ParameterizedTest
     @MethodSource("EmployeesFromDepartmentParams")
-    void printEmployeeDepartment(int departmentID, List<Employee>expected) {
+    void printEmployeeDepartmentTest(int departmentID, List<Employee>expected) {
         Assertions.assertThat(out.printEmployeeDepartment(departmentID)).containsExactlyInAnyOrderElementsOf(expected);
     }
 }
