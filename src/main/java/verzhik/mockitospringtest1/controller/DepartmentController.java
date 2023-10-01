@@ -1,12 +1,14 @@
 package verzhik.mockitospringtest1.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import jdk.jfr.Frequency;
+import org.springframework.web.bind.annotation.*;
 import verzhik.mockitospringtest1.objects.Employee;
 import verzhik.mockitospringtest1.services.DepartmentService;
 
+import java.util.List;
 import java.util.Map;
-
+@RestController
+@RequestMapping("/department")
 public class DepartmentController {
     public final DepartmentService departmentService;
 
@@ -14,24 +16,24 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping(path = "/all")
-    public Map<String, Employee> printEmployees() {
-        return departmentService.printEmployees();
+    @GetMapping( "/employees")
+    public Map<Integer, List<Employee>> printEmployees() {
+        return departmentService.employeesGroupedByDepartment();
     }
-
-    @GetMapping(path = "/min-salary")
-    public Employee findEmployeeMinSalary(@RequestParam(value = "departmentId", required = false)
-                                          int department) {
-        return departmentService.findEmployeeMinSalary(department);
+    @GetMapping( "/{id}/salary/sum")
+    public int findSumSalaryFromDepartment(@PathVariable int id) {
+        return departmentService.findSumSalaryfromDepartment(id);
     }
-    @GetMapping(path = "/max-salary")
-    public Employee findEmployeeMaxSalary(@RequestParam(value = "departmentId", required = false)
-                                          int department) {
-        return departmentService.findEmployeeMaxSalary(department);
+    @GetMapping( "/{id}/salary/min")
+    public int findMinSalaryFromDepartment(@PathVariable int id) {
+        return departmentService.findMinSalaryFromDepartment(id);
     }
-    @GetMapping(value = "/all", params = "departmentId")
-    public Map<Employee, String> printEmployeeDepartment(@RequestParam(value = "departmentId", required = false)
-                                                         int department) {
-        return departmentService.printEmployeeDepartment(department);
+    @GetMapping( "/{id}/salary/max")
+    public int findMaxSalaryFromDepartment(@PathVariable int id) {
+        return departmentService.findMaxSalaryFromDepartment(id);
+    }
+    @GetMapping(value = "/{id}/employees")
+    public List<Employee> printEmployeeDepartment(@PathVariable int id) {
+        return departmentService.printEmployeeDepartment(id);
     }
 }
